@@ -7,20 +7,19 @@ import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import { useDispatch, useSelector } from 'react-redux'
 import { notifyWith } from './reducers/notificationReducer'
+import { getBlogs, createBlog, removeBlog, likeBlog } from './reducers/blogsReducer'
 
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
 
   const dispatch = useDispatch()
+  const blogs = useSelector(({ blogs }) => blogs)
 
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )
-  }, [])
+    dispatch(getBlogs())
+  }, [dispatch])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -37,12 +36,10 @@ const App = () => {
     blogFormRef.current.toggleVisibility()
 
     try {
-      const formBlog = await blogService.create(blogObject)       
-      formBlog.user = { name: user.name, username: user.username }  
-      setBlogs(blogs.concat(formBlog))                              
-                                                                    
-      dispatch(notifyWith(                                          
-        `Blog : ${formBlog.title} by ${formBlog.author} added`
+      dispatch(createBlog(blogObject))
+
+      dispatch(notifyWith(
+        `Blog : ${blogObject.title} by ${blogObject.author} added`
       ))
 
     } catch (exception) {
@@ -53,9 +50,8 @@ const App = () => {
 
   const handleLikes = async (blog) => {
     try {
-      const updatedBlog = await blogService.updateLikes(blog)
       dispatch(notifyWith(`A like for blog ${blog.title} by ${blog.author}`))
-      setBlogs(blogs.map(b => b.id === blog.id ? updatedBlog : b))
+      dispatch(likeBlog({ ...blog, likes: blog.likes + 1, user: blog.user.id }))
     } catch (exeption) {
       dispatch(notifyWith(`Error trying while trying to add like to ${blog.title}`))
       console.log(exeption)
@@ -65,8 +61,7 @@ const App = () => {
   const handleDelete = async (blog) => {
     try {
       if(confirm(`Do you want to remove blog "${blog.title} by ${blog.author}"?`)) {
-        await blogService.deleteBlog(blog.id)
-        setBlogs(blogs.filter(b => b.id !== blog.id))
+        dispatch(removeBlog(blog.id))
         dispatch(notifyWith(`Blog ${blog.title} removed`))
       }
     } catch (exception) {
@@ -82,7 +77,7 @@ const App = () => {
   const blogForm = () => (
     <div className='blog-list'>
       <br></br>
-      {blogs.sort((a,b) => b.likes - a.likes).map(blog =>
+      {[...blogs].sort((a,b) => b.likes - a.likes).map(blog =>
         <Blog
           key={blog.id}
           blog={blog}
