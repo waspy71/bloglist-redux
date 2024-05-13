@@ -2,11 +2,16 @@ import axios from 'axios'
 const baseUrl = 'http://localhost:3003/api/blogs'
 
 
-const headers = {
-  Authorization: localStorage.getItem('loggedBlogappUser')
-    ? `Bearer ${JSON.parse(localStorage.getItem('loggedBlogappUser')).token}`
-    : null
+const config = () => {
+  return {
+    headers: {
+      Authorization: localStorage.getItem('loggedBlogappUser')
+        ? `Bearer ${JSON.parse(localStorage.getItem('loggedBlogappUser')).token}`
+        : null
+    }
+  }
 }
+
 
 const getAll = () => {
   const request = axios.get(baseUrl)
@@ -15,7 +20,7 @@ const getAll = () => {
 
 const create = async newBlog => {
 
-  const response = await axios.post(baseUrl, newBlog, { headers })
+  const response = await axios.post(baseUrl, newBlog, config())
   console.log('createBlog', response.data)
 
   return response.data
@@ -23,13 +28,13 @@ const create = async newBlog => {
 
 const updateLikes = async (blog) => {
 
-  const updatedBlog = await axios.put(`${baseUrl}/${blog.id}`, blog, { headers })
+  const updatedBlog = await axios.put(`${baseUrl}/${blog.id}`, blog, config())
   return updatedBlog.data
 }
 
 const deleteBlog = async (id) => {
 
-  await axios.delete(`${baseUrl}/${id}`, { headers })
+  await axios.delete(`${baseUrl}/${id}`, config())
 
 }
 
