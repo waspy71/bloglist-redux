@@ -4,10 +4,13 @@ import NewBlog from './components/NewBlog'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
+import Users from './components/Users'
+import User from './components/User'
 import { useDispatch, useSelector } from 'react-redux'
 import { notifyWith } from './reducers/notificationReducer'
 import { getBlogs, createBlog, removeBlog, likeBlog } from './reducers/blogsReducer'
 import { setUser, clearUser } from './reducers/userReducer'
+import { Routes, Route, Link } from 'react-router-dom'
 
 
 const App = () => {
@@ -95,6 +98,10 @@ const App = () => {
           <NewBlog handleCreate={handleCreate} />
         </Togglable>
         {blogForm()}
+        <Routes>
+          <Route path='/users' element={<Users />} />
+          <Route path='/users/:id' element={<User />} />
+        </Routes>
       </div>}
     </div>
   )
