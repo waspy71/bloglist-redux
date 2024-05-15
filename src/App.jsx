@@ -6,18 +6,19 @@ import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import Users from './components/Users'
 import User from './components/User'
+import BlogList from './components/BlogList'
 import { useDispatch, useSelector } from 'react-redux'
 import { notifyWith } from './reducers/notificationReducer'
 import { getBlogs, createBlog, removeBlog, likeBlog } from './reducers/blogsReducer'
 import { setUser, clearUser } from './reducers/userReducer'
 import { Routes, Route, Link } from 'react-router-dom'
+import { getUsers } from './reducers/usersReducer'
+import BlogDetail from './components/BlogDetail'
 
 
 const App = () => {
   const dispatch = useDispatch()
   const user = useSelector(({ user }) => user)
-  const blogs = useSelector(({ blogs }) => blogs)
-
 
   useEffect(() => {
     dispatch(getBlogs())
@@ -26,6 +27,12 @@ const App = () => {
   useEffect(() => {
     dispatch(setUser())
   }, [dispatch])
+
+
+  useEffect(() => {
+    dispatch(getUsers())
+  },[dispatch])
+
 
   const blogFormRef = useRef()
 
@@ -45,44 +52,11 @@ const App = () => {
     }
   }
 
-  const handleLikes = async (blog) => {
-    try {
-      dispatch(notifyWith(`A like for blog ${blog.title} by ${blog.author}`))
-      dispatch(likeBlog({ ...blog, likes: blog.likes + 1, user: blog.user.id }))
-    } catch (exeption) {
-      dispatch(notifyWith(`Error trying while trying to add like to ${blog.title}`))
-      console.log(exeption)
-    }
-  }
-
-  const handleDelete = async (blog) => {
-    try {
-      if(confirm(`Do you want to remove blog "${blog.title} by ${blog.author}"?`)) {
-        dispatch(removeBlog(blog.id))
-        dispatch(notifyWith(`Blog ${blog.title} removed`))
-      }
-    } catch (exception) {
-      dispatch(notifyWith('Must be creator of the blog', 'error'))
-    }
-  }
 
   const logoutUser = () => {
     dispatch(clearUser())
   }
 
-  const blogForm = () => (
-    <div className='blog-list'>
-      <br></br>
-      {[...blogs].sort((a,b) => b.likes - a.likes).map(blog =>
-        <Blog
-          key={blog.id}
-          blog={blog}
-          handleLikes={handleLikes}
-          handleDelete={handleDelete}
-          user={user}
-        />)}
-    </div>
-  )
 
   return (
     <div>
@@ -97,8 +71,9 @@ const App = () => {
         <Togglable buttonLabel='Create blog' ref={blogFormRef}>
           <NewBlog handleCreate={handleCreate} />
         </Togglable>
-        {blogForm()}
         <Routes>
+          <Route path='/' element={<BlogList  />} />
+          <Route path='/blogs/:id' element={<BlogDetail  />} />
           <Route path='/users' element={<Users />} />
           <Route path='/users/:id' element={<User />} />
         </Routes>
