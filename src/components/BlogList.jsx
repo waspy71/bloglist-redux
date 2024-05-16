@@ -2,7 +2,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { notifyWith } from '../reducers/notificationReducer'
 import { likeBlog, removeBlog } from '../reducers/blogsReducer'
 import Blog from './Blog'
-import { useParams } from 'react-router-dom'
+import { useRef } from 'react'
+import { createBlog } from '../reducers/blogsReducer'
+import Togglable from './Togglable'
+import NewBlog from './NewBlog'
 
 
 const BlogList = () => {
@@ -33,9 +36,29 @@ const BlogList = () => {
     }
   }
 
+  const blogFormRef = useRef()
+
+  const handleCreate = async (blogObject) => {
+    blogFormRef.current.toggleVisibility()
+
+    try {
+      dispatch(createBlog(blogObject))
+      dispatch(notifyWith(
+        `Blog : ${blogObject.title} by ${blogObject.author} added`
+      ))
+    } catch (exception) {
+      dispatch(notifyWith(exception.response.data.error, 'error'))
+      console.log(exception)
+    }
+  }
+
 
   return (
     <div className='blog-list'>
+      <h2>Blogs</h2>
+      <Togglable buttonLabel='Create blog' ref={blogFormRef}>
+        <NewBlog handleCreate={handleCreate} />
+      </Togglable>
       <br></br>
       {[...blogs].sort((a,b) => b.likes - a.likes).map(blog =>
         <Blog
@@ -47,8 +70,6 @@ const BlogList = () => {
         />)}
     </div>
   )
-
-
 }
 
 export default BlogList

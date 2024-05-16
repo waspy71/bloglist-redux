@@ -34,7 +34,7 @@ describe('Note app', function() {
       cy.get('#password').type('salainen')
       cy.get('#login-button').click()
 
-      cy.contains("sroot logged in")
+      cy.contains('sroot logged in')
     })
 
     it('fails with wrong credentials', function() {      //add notification during login process , if success and failure - DONE
@@ -115,25 +115,25 @@ describe('Note app', function() {
 
     it('can only be deleted by its creator', function() {
       cy.contains('logout').click()
-      cy.login({ username: "root", password: 'salainen' })
+      cy.login({ username: 'root', password: 'salainen' })
 
       cy.contains('View').click()
       cy.contains('remove').should('not.exist')
 
       cy.contains('logout').click()
-      cy.login({ username: "sroot", password: 'salainen' })
+      cy.login({ username: 'sroot', password: 'salainen' })
 
       cy.contains('View').click()
       cy.contains('remove').click()
-            
+
     })
   })
 
   describe('when theres several blogs', function() {
     const blogs = [
-      { title: 'blog0', author: 'Sal', url: 'www.sal.com'},
-      { title: 'blog1', author: 'Murr', url: 'www.murr.com'},
-      { title: 'blog2', author: 'Q', url: 'www.q.com'}
+      { title: 'blog0', author: 'Sal', url: 'www.sal.com' },
+      { title: 'blog1', author: 'Murr', url: 'www.murr.com' },
+      { title: 'blog2', author: 'Q', url: 'www.q.com' }
     ]
 
     beforeEach(function() {
@@ -183,10 +183,10 @@ describe('Note app', function() {
 
     })
   })
- 
+
 
 })
 
 //to start front end : npm run dev
-//to start backend in test: npm run start:test 
+//to start backend in test: npm run start:test
 //to start cypress : npm run cypress:open
