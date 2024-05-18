@@ -1,16 +1,18 @@
 
 
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { clearUser } from '../reducers/userReducer'
 
 const NavBar = () => {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const user = useSelector(({ user }) => user )
 
   const logoutUser = () => {
     dispatch(clearUser())
+    navigate('/')
   }
 
   const divStyle = {
