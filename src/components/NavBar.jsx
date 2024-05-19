@@ -18,7 +18,6 @@ const NavBar = () => {
   const divStyle = {
     background: 'lightgrey',
     padding: 5,
-    margin: 10
   }
 
   const style = {
