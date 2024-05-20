@@ -60,14 +60,19 @@ const BlogList = () => {
         <NewBlog handleCreate={handleCreate} />
       </Togglable>
       <br></br>
-      {[...blogs].sort((a,b) => b.likes - a.likes).map(blog =>
-        <Blog
-          key={blog.id}
-          blog={blog}
-          handleLikes={handleLikes}
-          handleDelete={handleDelete}
-          user={user}
-        />)}
+      <div className="row row-cols-1 row-cols-sm-2 gx">
+        {[...blogs].sort((a,b) => b.likes - a.likes).map(blog =>
+          <div key={blog.id} className="col">
+            <Blog
+              key={blog.id}
+              blog={blog}
+              handleLikes={handleLikes}
+              handleDelete={handleDelete}
+              user={user}
+            />
+          </div>
+        )}
+      </div>
     </div>
   )
 }

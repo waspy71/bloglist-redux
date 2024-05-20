@@ -12,24 +12,28 @@ const Users = () => {
       <h2>Users</h2>
       {!users
         ? null
-        :<table>
-          <tbody>
-            <tr>
-              <th>User:</th>
-              <th>Blogs created</th>
-            </tr>
-            {users.map(user =>
-              <tr key={user.id}>
-                <td>
-                  <Link to={`/users/${user.id}`} >
-                    {user.username}
-                  </Link>
-                </td>
-                <td>{user.blogs.length}</td>
+        :<div className='m-5'>
+          <table className="table table-striped table-hover table-secondary" >
+            <thead>
+              <tr>
+                <th>User:</th>
+                <th>Blogs created</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className='table-group-divider table-primary'>
+              {users.map(user =>
+                <tr key={user.id}>
+                  <td>
+                    <Link to={`/users/${user.id}`} >
+                      {user.username}
+                    </Link>
+                  </td>
+                  <td>{user.blogs.length}</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       }
     </div>
   )

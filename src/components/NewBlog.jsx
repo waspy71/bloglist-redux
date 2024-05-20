@@ -24,9 +24,11 @@ const NewBlog = ({ handleCreate }) => {
     <div>
       <h2>Create new blog</h2>
       <form onSubmit={handleBlog}>
-        <div>
-                title
+        <div className="input-group input-group-sm">
+          {/* <label htmlFor='title' className='form-label' >Title</label> */}
+          <div className="input-group-text"><b>Title</b></div>
           <input
+            className='form-control'
             id="title"
             type="text"
             value={title}
@@ -34,9 +36,11 @@ const NewBlog = ({ handleCreate }) => {
             onChange={({ target }) => setTitle(target.value)}
           />
         </div>
-        <div>
-                author
+        <div className='input-group input-group-sm'>
+          {/* <label htmlFor='author' className='form-label'>Author</label> */}
+          <div className="input-group-text"><b>Author</b></div>
           <input
+            className='form-control'
             id="author"
             type="text"
             value={author}
@@ -44,9 +48,11 @@ const NewBlog = ({ handleCreate }) => {
             onChange={({ target }) => setAuthor(target.value)}
           />
         </div>
-        <div>
-                url
+        <div className='input-group input-group-sm'>
+          {/* <label htmlFor='url' className='form-label'>Url</label> */}
+          <div className="input-group-text"><b>Url</b></div>
           <input
+            className='form-control'
             id="url"
             type="text"
             value={url}
