@@ -25,8 +25,7 @@ const NewBlog = ({ handleCreate }) => {
       <h2>Create new blog</h2>
       <form onSubmit={handleBlog}>
         <div className="input-group input-group-sm">
-          {/* <label htmlFor='title' className='form-label' >Title</label> */}
-          <div className="input-group-text"><b>Title</b></div>
+          <span className="input-group-text"><b>Title</b></span>
           <input
             className='form-control'
             id="title"
@@ -37,8 +36,7 @@ const NewBlog = ({ handleCreate }) => {
           />
         </div>
         <div className='input-group input-group-sm'>
-          {/* <label htmlFor='author' className='form-label'>Author</label> */}
-          <div className="input-group-text"><b>Author</b></div>
+          <span className="input-group-text"><b>Author</b></span>
           <input
             className='form-control'
             id="author"
@@ -49,8 +47,7 @@ const NewBlog = ({ handleCreate }) => {
           />
         </div>
         <div className='input-group input-group-sm'>
-          {/* <label htmlFor='url' className='form-label'>Url</label> */}
-          <div className="input-group-text"><b>Url</b></div>
+          <span className="input-group-text"><b>Url</b></span>
           <input
             className='form-control'
             id="url"
@@ -60,7 +57,7 @@ const NewBlog = ({ handleCreate }) => {
             onChange={({ target }) => setUrl(target.value)}
           />
         </div>
-        <button className="blog-create-button" type="submit">Create</button>
+        <button className="blog-create-button mb-1" type="submit">Create</button>
       </form>
     </div>
 

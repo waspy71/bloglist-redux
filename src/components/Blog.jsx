@@ -9,20 +9,17 @@ const Blog = ({ blog, handleLikes, handleDelete, user }) => {
     setBlogVisible(!blogVisible)
   }
 
-
-  const border = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
-  }
-
   return (
-    <div style={border} className="Blog">
-      <div >
+    <div className="Blog border border-info border-2 rounded mb-2">
+      <div className='p-2'>
         <Link to={`/blogs/${blog.id}`}>{blog.title} {blog.author}</Link>
-        <button onClick={toggleVisibility}>{blogVisible ? 'hide' : 'View'}</button>
+        <button
+          onClick={toggleVisibility}
+          className='btn btn-outline-info mx-2'
+          data-bs-toggle='button'
+        >
+          {blogVisible ? 'hide' : 'View'}
+        </button>
         {blogVisible &&
         <div className="hidden">
           <div> {blog.url} </div>
