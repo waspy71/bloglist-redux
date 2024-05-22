@@ -53,7 +53,7 @@ const LoginForm = () => {
           />
           <label htmlFor='Password'>Password</label>
         </div>
-        <button id="login-button" type='submit'>login</button>
+        <button className='btn btn-outline-primary' id="login-button" type='submit'>login</button>
       </form>
     </div>
   )

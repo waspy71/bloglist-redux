@@ -11,22 +11,22 @@ const Blog = ({ blog, handleLikes, handleDelete, user }) => {
 
   return (
     <div className="Blog border border-info border-2 rounded mb-2">
-      <div className='p-2'>
-        <Link to={`/blogs/${blog.id}`}>{blog.title} {blog.author}</Link>
+      <div className='position-relative p-3'>
+        <Link to={`/blogs/${blog.id}`} className='pe-5'>{blog.title} {blog.author}</Link>
         <button
-          onClick={toggleVisibility}
-          className='btn btn-outline-info mx-2'
+          className='btn btn-block btn-outline-info position-absolute top-0 end-0 m-2'
           data-bs-toggle='button'
+          onClick={toggleVisibility}
         >
           {blogVisible ? 'hide' : 'View'}
         </button>
         {blogVisible &&
         <div className="hidden">
           <div> {blog.url} </div>
-          <div>Likes : {blog.likes} <button onClick={() => handleLikes(blog)}>like</button></div>
+          <div>Likes : {blog.likes} <button className='btn btn-outline-primary' onClick={() => handleLikes(blog)}>like</button></div>
           <div>{blog.user.username}</div>
           { user.username === blog.user.username &&
-            <div><button id="blog-remove-button" onClick={() => handleDelete(blog)}>remove</button></div>}
+            <div><button className='btn btn-outline-danger' id="blog-remove-button" onClick={() => handleDelete(blog)}>remove</button></div>}
         </div>}
       </div>
     </div>

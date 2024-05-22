@@ -15,22 +15,13 @@ const NavBar = () => {
     navigate('/')
   }
 
-  const divStyle = {
-    background: 'lightgrey',
-    padding: 5,
-  }
-
-  const style = {
-    marginRight: 5
-  }
-
   return (
-    <><div style={divStyle}>
-      <Link to='/' style={style}>Blogs</Link>
-      <Link to='/users' style={style}>Users</Link>
-      <span style={style}>
+    <><div className='bg-info bg-gradient p-2 '>
+      <Link to='/' className='me-2 btn btn-primary' >Blogs</Link>
+      <Link to='/users' className='me-2 btn btn-primary' >Users</Link>
+      <span >
         {user.username} logged in
-        <button onClick={logoutUser}>logout</button>
+        <button className='btn btn-light ms-3' onClick={logoutUser}>logout</button>
       </span>
     </div>
     <div>

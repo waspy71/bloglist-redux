@@ -51,18 +51,21 @@ const BlogDetail = () => {
       <div >
         <h2>{blog.title} {blog.author}</h2>
         <div><a href={`${blog.url}`}>{blog.url}</a></div>
-        <div>Likes : {blog.likes} <button onClick={() => handleLikes(blog)}>like</button></div>
+        <div>Likes : {blog.likes} <button className='btn btn-outline-primary' onClick={() => handleLikes(blog)}>like</button></div>
         <div>By {blog.user.username}</div>
       </div>
       <div>
         <h2>Comments</h2>
         <form onSubmit={handleComment}>
-          <input
-            type='text'
-            value={comment}
-            onChange={({ target }) => setComment(target.value)}
-          />
-          <button type='submit'>Add comment</button>
+          <div className="input-group input-group-sm w-25">
+            <input
+              className='form-control'
+              type='text'
+              value={comment}
+              onChange={({ target }) => setComment(target.value)}
+            />
+            <button className='input-group-text btn btn-primary' type='submit'>Add comment</button>
+          </div>
         </form>
         <ul>
           {blog.comments.map(c => <li key={c}>{c}</li>)}
