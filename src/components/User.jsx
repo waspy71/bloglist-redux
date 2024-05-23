@@ -19,13 +19,15 @@ const User = () => {
     <div>
       <h2>{user.username}</h2>
       <h3>added blogs:</h3>
-      <ul>
+      <div className='row row-cols-1 row-cols-sm-2 gx-0'>
         {user.blogs.map(b =>
-          <li key={b.id}>
-            {b.title}
-          </li>
+          <div key={b.id} className='card g-2 '>
+            <h3 className='card-header'>Title : {b.title}</h3>
+            <div className='card-body'>By {b.author}</div>
+            <div className='card-footer'><a href={b.url}>{b.url}</a></div>
+          </div>
         )}
-      </ul>
+      </div>
     </div>
   )
 }

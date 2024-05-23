@@ -40,16 +40,8 @@ const BlogList = () => {
 
   const handleCreate = async (blogObject) => {
     blogFormRef.current.toggleVisibility()
+    dispatch(createBlog(blogObject))
 
-    try {
-      dispatch(createBlog(blogObject))
-      dispatch(notifyWith(
-        `Blog : ${blogObject.title} by ${blogObject.author} added`
-      ))
-    } catch (exception) {
-      dispatch(notifyWith(exception.response.data.error, 'error'))
-      console.log(exception)
-    }
   }
 
 

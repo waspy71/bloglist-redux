@@ -8,18 +8,18 @@ const Notification = () => {
     return
   }
 
-  const style = {
-    color: info.type === 'error' ? 'red' : 'green',
-    background: 'lightgrey',
-    fontSize: 20,
-    borderStyle: 'solid',
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10
-  }
+  // const style = {
+  //   color: info.type === 'error' ? 'red' : 'green',
+  //   background: 'lightgrey',
+  //   fontSize: 20,
+  //   borderStyle: 'solid',
+  //   borderRadius: 5,
+  //   padding: 10,
+  //   marginBottom: 10
+  // }
 
   return (
-    <div className="notification" style={style}>
+    <div className={`notification alert alert-${info.type === 'error' ? 'danger' : 'success'} my-2`}>
       {info.message}
     </div>
   )

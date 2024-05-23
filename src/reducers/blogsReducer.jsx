@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import blogService from '../services/blogs'
+import { notifyWith } from './notificationReducer'
 
 
 const blogsSlice = createSlice({
@@ -36,8 +37,15 @@ export const getBlogs = () => {
 
 export const createBlog = (object) => {
   return async dispatch => {
-    const newBlog = await blogService.create(object)
-    dispatch(blogCreate(newBlog))
+    try {
+      const newBlog = await blogService.create(object)
+      dispatch(blogCreate(newBlog))
+      dispatch(notifyWith(
+        `Blog : ${newBlog.title} by ${newBlog.author} added`
+      ))
+    }catch(exception) {
+      dispatch(notifyWith(exception.response.data.error, 'error'))
+    }
   }
 }
 
